@@ -1,89 +1,88 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
 
-moduleForComponent('masonry-grid', 'Unit | Component | masonry grid', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar'],
-  unit: true
-});
+module('Unit | Component | masonry grid', function(hooks) {
+  setupTest(hooks);
 
-test('the options hash has the correct defaults', function(assert) {
-  let component = this.subject();
+  test('the options hash has the correct defaults', function(assert) {
+    let component = this.owner.factoryFor('component:masonry-grid').create();
 
-  assert.deepEqual(component.get('options'), {
-    isInitLayout: false,
-    itemSelector: '.masonry-item'
-  });
-});
-
-test('the options hash handles "null" as a primitive type', function(assert) {
-  let component = this.subject();
-
-  component.set('containerStyle', 'null');
-
-  assert.deepEqual(component.get('options'), {
-    isInitLayout: false,
-    itemSelector: '.masonry-item',
-    containerStyle: null
-  });
-});
-
-test('the options hash updates when masonry properties are changed', function(assert) {
-  let component = this.subject();
-
-  component.set('transitionDuration', '1s');
-
-  assert.deepEqual(component.get('options'), {
-    isInitLayout: false,
-    itemSelector: '.masonry-item',
-    transitionDuration: '1s'
+    assert.deepEqual(component.get('options'), {
+      isInitLayout: false,
+      itemSelector: '.masonry-item'
+    });
   });
 
-  component.set('transitionDuration', '0.5s');
+  test('the options hash handles "null" as a primitive type', function(assert) {
+    let component = this.owner.factoryFor('component:masonry-grid').create();
 
-  assert.equal(component.get('options.transitionDuration'), '0.5s');
-});
+    component.set('containerStyle', 'null');
 
-test('didUpdateAttrs calls super and destroys masonry if any options have changed', function(assert) {
-  let component = this.subject();
-  let args = [{
-    oldAttrs: {
-      gutter: 0
-    },
-    newAttrs: {
-      gutter: 10
-    }
-  }];
+    assert.deepEqual(component.get('options'), {
+      isInitLayout: false,
+      itemSelector: '.masonry-item',
+      containerStyle: null
+    });
+  });
 
-  component._super = sinon.stub();
-  component._destroyMasonry = sinon.stub();
+  test('the options hash updates when masonry properties are changed', function(assert) {
+    let component = this.owner.factoryFor('component:masonry-grid').create();
 
-  component.didUpdateAttrs(...args);
+    component.set('transitionDuration', '1s');
 
-  assert.ok(component._super.calledOnce, '_super was called once');
-  assert.deepEqual(component._super.args[0], args, '_super was called with the attrs passed to didUpdateAttrs');
+    assert.deepEqual(component.get('options'), {
+      isInitLayout: false,
+      itemSelector: '.masonry-item',
+      transitionDuration: '1s'
+    });
 
-  assert.ok(component._destroyMasonry.calledOnce, 'masonry was destroyed');
-});
+    component.set('transitionDuration', '0.5s');
 
-test('didUpdateAttrs does nothing if no masonry-specific options were changed', function(assert) {
-  let component = this.subject();
-  let args = [{
-    oldAttrs: {
-      gutter: 10
-    },
-    newAttrs: {
-      gutter: 10
-    }
-  }];
+    assert.equal(component.get('options.transitionDuration'), '0.5s');
+  });
 
-  component._super = sinon.stub();
-  component._destroyMasonry = sinon.stub();
+  test('didUpdateAttrs calls super and destroys masonry if any options have changed', function(assert) {
+    let component = this.owner.factoryFor('component:masonry-grid').create();
+    let args = [{
+      oldAttrs: {
+        gutter: 0
+      },
+      newAttrs: {
+        gutter: 10
+      }
+    }];
 
-  component.didUpdateAttrs(...args);
+    component._super = sinon.stub();
+    component._destroyMasonry = sinon.stub();
 
-  assert.ok(component._super.calledOnce, '_super was called once');
-  assert.deepEqual(component._super.args[0], args, '_super was called with the attrs passed to didUpdateAttrs');
+    component.didUpdateAttrs(...args);
 
-  assert.ok(component._destroyMasonry.notCalled, 'masonry is not destroyed');
+    assert.ok(component._super.calledOnce, '_super was called once');
+    assert.deepEqual(component._super.args[0], args, '_super was called with the attrs passed to didUpdateAttrs');
+
+    assert.ok(component._destroyMasonry.calledOnce, 'masonry was destroyed');
+  });
+
+  test('didUpdateAttrs does nothing if no masonry-specific options were changed', function(assert) {
+    let component = this.owner.factoryFor('component:masonry-grid').create();
+    let args = [{
+      oldAttrs: {
+        gutter: 10
+      },
+      newAttrs: {
+        gutter: 10
+      }
+    }];
+
+    component._super = sinon.stub();
+    component._destroyMasonry = sinon.stub();
+
+    component.didUpdateAttrs(...args);
+
+    assert.ok(component._super.calledOnce, '_super was called once');
+    assert.deepEqual(component._super.args[0], args, '_super was called with the attrs passed to didUpdateAttrs');
+
+    assert.ok(component._destroyMasonry.notCalled, 'masonry is not destroyed');
+  });
 });

@@ -1,15 +1,8 @@
-import Ember from 'ember';
+import { oneWay } from '@ember/object/computed';
+import { htmlSafe } from '@ember/template';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from './template';
-
-const {
-  Component,
-  computed,
-  get
-} = Ember;
-
-const {
-  htmlSafe
-} = Ember.String;
 
 export default Component.extend({
   layout,
@@ -18,7 +11,7 @@ export default Component.extend({
 
   masonryItemStyle: htmlSafe('position: absolute'),
 
-  itemClass: computed.oneWay('grid.itemClass'),
+  itemClass: oneWay('grid.itemClass'),
 
   click(ev) {
     const onItemClick = get(this, 'onItemClick');
