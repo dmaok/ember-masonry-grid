@@ -1,15 +1,11 @@
-import Ember from 'ember';
-
-const {
-  Controller,
-  get,
-  set
-} = Ember;
+import { run } from '@ember/runloop';
+import Controller from '@ember/controller';
+import { set, get, computed } from '@ember/object';
 
 export default Controller.extend({
   first: true,
 
-  currentObject: Ember.computed('first', 'model', function() {
+  currentObject: computed('first', 'model', function() {
     let modelIndex = this.get('first') ? 0 : 1;
 
     return this.get('model').objectAt(modelIndex);
@@ -36,7 +32,7 @@ export default Controller.extend({
     },
 
     onItemClick(ev, item) {
-      Ember.run(() => {
+      run(() => {
         get(this, 'currentObject').removeObject(item);
       });
     }

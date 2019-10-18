@@ -92,4 +92,8 @@ If you find an issue or missing functionality, please don't hesistate to open a 
 ### Building
 * `ember build`
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).

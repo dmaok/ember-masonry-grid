@@ -1,4 +1,5 @@
 {
+  "esversion": "2018",
   "predef": [
     "console"
   ]
