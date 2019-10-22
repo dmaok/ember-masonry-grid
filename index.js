@@ -5,17 +5,16 @@ module.exports = {
 
   included: function (app) {
     this._super.included(app);
-    console.log(app);
 
     if (!process.env.EMBER_CLI_FASTBOOT) {
       app.import({
-        development: 'node_modules/masonry-layout/dist/masonry.pkgd.js',
-        production: 'node_modules/masonry-layout/dist/masonry.pkgd.min.js'
+        development: 'vendor/masonry-layout/dist/masonry.pkgd.js',
+        production: 'vendor/masonry-layout/dist/masonry.pkgd.min.js'
       });
 
       app.import({
-        development: 'node_modules/imagesloaded/imagesloaded.pkgd.js',
-        production: 'node_modules/imagesloaded/imagesloaded.pkgd.min.js'
+        development: 'vendor/imagesloaded/imagesloaded.pkgd.js',
+        production: 'vendor/imagesloaded/imagesloaded.pkgd.min.js'
       });
     }
   }
