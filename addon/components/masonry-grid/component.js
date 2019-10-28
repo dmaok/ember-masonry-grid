@@ -81,8 +81,10 @@ export default Component.extend({
           const options = get(this, 'options');
           masonry = set(this, 'masonry', new Masonry(get(this, 'element'), options));
 
-          masonry.on('layoutComplete', (layout) => {
-            this.onLayoutComplete(layout);
+          masonry.on('layoutComplete', layout => {
+            if (typeof this.onLayoutComplete === 'function') {
+              this.onLayoutComplete(layout);
+            }
           });
         }
 
